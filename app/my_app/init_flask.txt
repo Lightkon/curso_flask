@@ -1,0 +1,20 @@
+De esta Manera se puede iniciar correctamente flask y crear un "Hola Mundo" en un solo documento.
+Pero estamos siguiendo un orden de carpetas por lo tanto, tiene una estructura un poco mas compleja.
+
+
+from flask import Flask
+
+from config import DevConfig # , ProdConfig  # este metodo es mas ordenado porque puedes cambiar,
+# de desarrollo a produccion con un simple cambio de metodo en eje: "app.config.from_object(ProdConfig)"
+
+app = Flask(__name__)
+app.config.from_object(DevConfig)  # Esto es lo mismo que decir "app.debug = True"
+
+@app.route('/')
+def hello() -> str:  # como buena practica ponemos que tipo de dato regresa
+    return "Hello Sully!"
+
+if __name__ == "__main__":  # Corre flask sin necesidad de hacerlo desde la terminal
+    app.run()
+    # app.run(debug=True)  # Con esta configuracion entramos en modo debug y cada ves que hagamos cambios y guardamos,
+    # se reflejan los cambios

@@ -1,0 +1,21 @@
+# Este archivo es para indicar cuales son los archivos que no se subirian a github cuando hagamos commits
+__pycache__
+.env
+.flaskenv
+*.pyc
+*.pyo
+env/
+venv/
+.venv/
+env*
+dist/
+build/
+*.egg
+*.egg-info/
+_mailinglist
+.cache/
+.pytest_cache
+.idea/
+docs/_build/
+.vscode
+.code-workspace
