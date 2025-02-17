@@ -1,0 +1,27 @@
+{% extends "dashboard/master.html" %}  {# Usando "extends" y la ruta, se puede acceder a los bloques de master.html #}
+
+{% block title %} Index task {% endblock %}
+
+{% block content %}
+    <ul>
+        {% for t in tasks %}
+            <li><h3>{{t}}</h3></li>
+            {# estamos creando un enlace "a" con la ruta del indice del loop empezando en 0  #}
+            <!--
+            <li><a href="/task/update{{ loop.index0 }}">Void_Link</a></li> {# "loop.index" es una variable propia del "for" que indica el indice del for #}
+            {# ".index0" quiere decir que el indice emperaza desde el 0, de otra manera empezaría en el 1 #}
+            -->
+            <li> <a href=" {{url_for("index.update", id=loop.index0) }} ">Update</a> </li> {# infor de url_for abajo en notas #}
+            <li> <a href=" {{url_for("index.create") }}" >Create</a> </li>
+            <li> <a href=" {{url_for("index.delete", id=loop.index0) }}" >Delete</a> </li>
+            {%  endfor %}
+    </ul>
+{% endblock %}
+
+
+{# NOTAS #}
+{# el url_for se usa para referenciar directamente a los metodos que estas usando #}
+{# el metodo para usar url_for es: {{url_for("nombre_de_la_url")}} #}
+{# En este caso el nombre del url es "index" asi lo pusimos en el "taskRoute" del Blueprint #}
+{# una vez el nombre de la ruta esta puesto, podemos agregar cualquiera de los metodos, que estan ligados a esa ruta eje: "index.update" #}
+{# para este ejemplo, como update es un metodo que requiere un parametro "id" lo agregamos al url_for como se ve arriba #}

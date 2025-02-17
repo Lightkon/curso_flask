@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Template example</h1>
+    <h2>Hello {{name}}</h2>
+    <h2>Loops</h2>
+    <ul>
+    {% for i, hobby in hobbies%}  {# Jinja no usa toda la sintaxis de python, por ejemplo enumerate se tiene que usar desde "controller" #}
+        <li>{{loop.index}}: {{hobby}}</li> {# si usamos "loop.index" en lugar de "i" con enumerate, sucede lo mismo #}
+        {#  "loop" tiene varios metodos para utilizar... #}
+    {%  endfor %}
+    </ul>
+    <h3>Filtros</h3>
+    {{ task | default("No hay tarea") }}  {# para poner filros siempre se usa "|" #}
+    {# El filtro "default()" deja escrito un texto, siempre y cuando no este definida una variable #} 
+
+    {% if task | default("No hay tarea") == "Pablo no entrego la tarea!" %}
+        <p>Tenemos Data nueva</p>
+    {% endif %}
+
+    <p>{{ "<h1>Hola Mundo</h1>" | escape}}</p>
+    {# "scape" cambia los caracteres "<>" por una secuencia segura, para que no valla a haber una confusion en el codigo #}
+    {# el filtro "int", "float", sirve para convertir un num a f #}
+    {# 6.141 | round , te da 6.0 al redondearlo con 6.51 se redondea a 7.0, si pasamos a round(2) un parametro te da ese num de decimales #}
+    {# "Hello Flask" | replace("Hello", "Hi"), remplaza un valor por otro  #}
+    {# ["Hello", "Flask", "World"] | join(""), une a toda la lista de palabras como "Hello Flask World" #}
+    {# "Hello" | lower, lo vuelve como hello, "upper" lo pasa todo a maysculas #}
+    {# {%filter lower %} contenido de la funcion {% endfilter %}, de esta manera se vuele multilinea el codigo #}
+    {# "hello" | reverse, pone los valores al revez olleh #}
+    {% for e in [1, 2, 3, 4, 5, 6, 7] | reverse %} {# empieza por el final de la lista hacia el principio #}
+        {{ e }}
+    {% endfor %}
+    <br>
+    {# "Hola Mundo" | length, te da el numero del tamaño del string o lista #}
+    {% for n in [10, 2, 43, -5, 0] | sort(reverse=true) %} {# con solo usar "reverse" se hubiera ordenado en orden ascendente #}
+        {{ n }}
+    {% endfor %}
+    <br>
+    {% for n in [1, 2, 3, 4, 5, 6, 7, 8] | slice(3) %} {# divide la lista en 3 listas #}
+        {{ n }}
+    {% endfor %}
+    <br>
+
+    <h3>Variables</h3>
+
+    {%  set var1 = "Flasks" %}
+    {% set var2 = var1 %}
+    <p>var1 = {{ var1 }} </p>
+    <br>
+    <p>var2 = {{ var2 }} </p>
+    <br>
+    <h3>Bloques</h3>
+    {# {% block nombre_del_bloque %} contenido del bloque {% endblock %}, todo lo que rodee al bloque se copia para usar como template  #}
+    {% raw %}  {# raw deja las cosas sin modificarlas sean variables o lo que sea sin mencionar html #}
+        var1
+        {{var1}}
+    {% endraw %}
+    <br>
+    <h3>Macros</h3>
+
+    {% macro suma(v1, v2) %} {# te permite crear tus funciones #}
+        <p>{{v1}} + {{v2}} = {{v1+v2}} </p>
+    {% endmacro %}
+
+    {{ suma(3,4) }}
+    <br>
+    <h3>Templates</h3>
+    
+</body>
+</html>
